@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom'
 export default function Nav() {
     return (
         <div className="nav">
-            <h1>ProgBR</h1>
+            <h1>
+                <Link to="/">ProgBR</Link>
+            </h1>
             <ul className="nav-links">
                 <li>
                     <Link to="/aulas">Aulas</Link>
