@@ -6,42 +6,56 @@ import Aulas from './components/Aulas'
 import Sobre from './components/Sobre'
 import Aula from './components/Aula'
 import Assistir from './components/Assistir'
+import PrivateRoute from './components/PrivateRoute'
+import Denied from './components/Denied'
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
+import loginReducer from './reducers/loginReducer'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+
+const store = createStore(loginReducer)
+
 function App() {
   return (
-    <Router>
-      <div className="app">
-        <Nav></Nav>
+    <Provider store={store}>
+      <Router>
+        <div className="app">
+          <Nav></Nav>
 
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
 
-          <Route exact path="/aulas/:id">
-            <Aula />
-          </Route>
+            <Route exact path="/aulas/:id">
+              <Aula />
+            </Route>
 
-          <Route path="/aulas">
-            <Aulas />
-          </Route>
+            <PrivateRoute path="/aulas">
+              <Aulas />
+            </PrivateRoute>
 
-          <Route path="/sobre">
-            <Sobre />
-          </Route>
+            <Route path="/sobre">
+              <Sobre />
+            </Route>
 
-          <Route path="/assistir">
-            <Assistir />
-          </Route>
+            <Route path="/assistir">
+              <Assistir />
+            </Route>
 
-          <Route path="*">
-            <div className="page">Essa rota não existe</div>
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+            <Route path="/negado">
+              <Denied />
+            </Route>
+
+            <Route path="*">
+              <div className="page">Essa rota não existe</div>
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
